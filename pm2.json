@@ -1,0 +1,14 @@
+{
+    "apps": [
+        {
+            "name": "nsp-server@18902",
+            "script": "dist/index.js",
+            "args": [],
+            "env": {
+                "PORT": "18902",
+                "NODE_ENV": "production"
+            },
+            "instances": 1
+        }
+    ]
+}
