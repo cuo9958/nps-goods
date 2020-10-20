@@ -1,9 +1,8 @@
 import { Model, DataTypes } from "sequelize";
 import db from "../db/mysql";
 
-interface GoodsAttr {
+export interface GoodsAttr {
     id: number;
-    spu: string;
     sku: string;
     /**
      * 标题
@@ -19,19 +18,23 @@ interface GoodsAttr {
     image: string;
     cid: number;
     status: number;
+    /**
+     * 品牌id
+     */
+    brand_id: number;
 }
 /**
  * 商品简略信息表
  */
-class Goods extends Model implements GoodsAttr {
+class Goods extends Model<GoodsAttr> implements GoodsAttr {
     public id: number;
-    public spu: string;
     public sku: string;
     public title: string;
     public sort_title: string;
     public image: string;
     public cid: number;
     public status: number;
+    public brand_id: number;
 }
 Goods.init(
     {
@@ -39,11 +42,6 @@ Goods.init(
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true,
-        },
-        spu: {
-            type: DataTypes.STRING(10),
-            defaultValue: "",
-            comment: "商品的spu",
         },
         sku: {
             type: DataTypes.STRING(10),
@@ -69,6 +67,11 @@ Goods.init(
             type: DataTypes.INTEGER,
             defaultValue: 0,
             comment: "分类id",
+        },
+        brand_id: {
+            type: DataTypes.INTEGER,
+            defaultValue: 0,
+            comment: "品牌id",
         },
         status: {
             type: DataTypes.TINYINT,

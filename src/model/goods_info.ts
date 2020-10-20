@@ -1,35 +1,15 @@
 import { Model, DataTypes } from "sequelize";
 import db from "../db/mysql";
+import { GoodsAttr } from "./goods";
 
-interface GoodsInfoAttr {
-    id: number;
-    spu: string;
-    sku: string;
-    /**
-     * 标题
-     */
-    title: string;
-    /**
-     * 短标题
-     */
-    sort_title: string;
-    /**
-     * 首图
-     */
-    image: string;
-    /**
-     * 详情
-     */
+interface GoodsInfoAttr extends GoodsAttr {
     content: string;
-    cid: number;
-    status: number;
 }
 /**
  * 商品信息表,附加规格表，头图表
  */
-class GoodsInfo extends Model implements GoodsInfoAttr {
+class GoodsInfo extends Model<GoodsInfoAttr> implements GoodsInfoAttr {
     public id: number;
-    public spu: string;
     public sku: string;
     public title: string;
     public sort_title: string;
@@ -37,6 +17,7 @@ class GoodsInfo extends Model implements GoodsInfoAttr {
     public content: string;
     public cid: number;
     public status: number;
+    public brand_id: number;
 }
 GoodsInfo.init(
     {
@@ -44,11 +25,6 @@ GoodsInfo.init(
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true,
-        },
-        spu: {
-            type: DataTypes.STRING(10),
-            defaultValue: "",
-            comment: "商品的spu",
         },
         sku: {
             type: DataTypes.STRING(10),
@@ -80,6 +56,11 @@ GoodsInfo.init(
             defaultValue: 0,
             comment: "分类id",
         },
+        brand_id: {
+            type: DataTypes.INTEGER,
+            defaultValue: 0,
+            comment: "品牌id",
+        },
         status: {
             type: DataTypes.TINYINT,
             defaultValue: 0,
@@ -104,16 +85,16 @@ export default {
     insert: function (model: any) {
         return GoodsInfo.create(model);
     },
-    get: function (uuid: string) {
+    get: function (sku: string) {
         return GoodsInfo.findOne({
             where: {
-                uuid,
+                sku,
             },
         });
     },
-    update(model, uuid) {
+    update(model, sku) {
         return GoodsInfo.update(model, {
-            where: { uuid },
+            where: { sku },
         });
     },
 };
