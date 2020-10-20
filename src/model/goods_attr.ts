@@ -6,6 +6,7 @@ interface iGoodsAttr {
     name: string;
     val: string;
     sku: string;
+    image: string;
     /**
      * 价格
      */
@@ -28,6 +29,7 @@ class GoodsAttr extends Model<iGoodsAttr> implements iGoodsAttr {
     public name: string;
     public val: string;
     public sku: string;
+    public image: string;
     public price: number;
     public stock: number;
     public unit: string;
@@ -44,6 +46,11 @@ GoodsAttr.init(
             type: DataTypes.STRING(10),
             defaultValue: "",
             comment: "商品的sku",
+        },
+        image: {
+            type: DataTypes.STRING(200),
+            defaultValue: "",
+            comment: "主图",
         },
         name: {
             type: DataTypes.STRING(20),

@@ -12,7 +12,7 @@ export interface iGoodsImgs {
     status: number;
 }
 /**
- * 商品简略信息表
+ * 商品图片列表
  */
 class GoodsImgs extends Model<iGoodsImgs> implements iGoodsImgs {
     public id: number;
@@ -53,12 +53,7 @@ GoodsImgs.init(
         sequelize: db,
         freezeTableName: true,
         tableName: "t_goods",
-        indexes: [
-            {
-                unique: true,
-                fields: ["sku"],
-            },
-        ],
+        indexes: [],
     }
 );
 

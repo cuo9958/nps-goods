@@ -74,7 +74,7 @@ GoodsInfo.init(
         indexes: [
             {
                 unique: true,
-                fields: ["sku"],
+                fields: ["spu"],
             },
         ],
     }

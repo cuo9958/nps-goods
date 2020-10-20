@@ -86,7 +86,7 @@ Goods.init(
         indexes: [
             {
                 unique: true,
-                fields: ["sku"],
+                fields: ["spu"],
             },
         ],
     }
