@@ -1,88 +1,85 @@
 import { Model, DataTypes } from "sequelize";
 import db from "../db/mysql";
 
-export interface iGoods {
+interface iGoodsAttr {
     id: number;
-    spu: string;
+    name: string;
+    val: string;
+    sku: string;
     /**
-     * 标题
+     * 价格
      */
-    title: string;
+    price: number;
     /**
-     * 短标题
+     * 库存
      */
-    sort_title: string;
+    stock: number;
     /**
-     * 首图
+     * 单位
      */
-    image: string;
-    cid: number;
+    unit: string;
     status: number;
-    /**
-     * 品牌id
-     */
-    brand_id: number;
 }
 /**
- * 商品简略信息表
+ * 商品规格表
  */
-class Goods extends Model<iGoods> implements iGoods {
+class GoodsAttr extends Model<iGoodsAttr> implements iGoodsAttr {
     public id: number;
-    public spu: string;
-    public title: string;
-    public sort_title: string;
-    public image: string;
-    public cid: number;
+    public name: string;
+    public val: string;
+    public sku: string;
+    public price: number;
+    public stock: number;
+    public unit: string;
     public status: number;
-    public brand_id: number;
 }
-Goods.init(
+GoodsAttr.init(
     {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true,
         },
-        spu: {
+        sku: {
             type: DataTypes.STRING(10),
             defaultValue: "",
             comment: "商品的sku",
         },
-        title: {
-            type: DataTypes.STRING(50),
-            defaultValue: "",
-            comment: "标题",
-        },
-        sort_title: {
+        name: {
             type: DataTypes.STRING(20),
             defaultValue: "",
-            comment: "短标题",
+            comment: "名称",
         },
-        image: {
+        val: {
             type: DataTypes.STRING(20),
             defaultValue: "",
-            comment: "主图",
+            comment: "规格值",
         },
-        cid: {
+        price: {
             type: DataTypes.INTEGER,
             defaultValue: 0,
-            comment: "分类id",
+            comment: "价格，单位分",
         },
-        brand_id: {
+        stock: {
             type: DataTypes.INTEGER,
             defaultValue: 0,
-            comment: "品牌id",
+            comment: "库存数量",
+        },
+        unit: {
+            type: DataTypes.STRING(10),
+            defaultValue: "",
+            comment: "单位",
         },
         status: {
             type: DataTypes.TINYINT,
             defaultValue: 0,
-            comment: "状态:0/1/99,待上架、上架、删除",
+            comment: "状态:0、1，关闭、展示",
         },
     },
     {
         sequelize: db,
         freezeTableName: true,
-        tableName: "t_goods",
+        tableName: "t_goods_attr",
         indexes: [
             {
                 unique: true,
@@ -93,20 +90,20 @@ Goods.init(
 );
 
 export default {
-    sync: (force = true) => Goods.sync({ force }),
+    sync: (force = true) => GoodsAttr.sync({ force }),
     insert: function (model: any) {
-        return Goods.create(model);
+        return GoodsAttr.create(model);
     },
-    get: function (spu: string) {
-        return Goods.findOne({
+    get: function (sku: string) {
+        return GoodsAttr.findOne({
             where: {
-                spu,
+                sku,
             },
         });
     },
-    update(model, spu) {
-        return Goods.update(model, {
-            where: { spu },
+    update(model, sku) {
+        return GoodsAttr.update(model, {
+            where: { sku },
         });
     },
 };
