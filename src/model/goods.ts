@@ -17,6 +17,7 @@ interface GoodsAttr {
      * 首图
      */
     image: string;
+    cid: number;
     status: number;
 }
 /**
@@ -29,6 +30,7 @@ class Goods extends Model implements GoodsAttr {
     public title: string;
     public sort_title: string;
     public image: string;
+    public cid: number;
     public status: number;
 }
 Goods.init(
@@ -62,6 +64,11 @@ Goods.init(
             type: DataTypes.STRING(20),
             defaultValue: "",
             comment: "主图",
+        },
+        cid: {
+            type: DataTypes.INTEGER,
+            defaultValue: 0,
+            comment: "分类id",
         },
         status: {
             type: DataTypes.TINYINT,

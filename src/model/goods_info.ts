@@ -21,6 +21,7 @@ interface GoodsInfoAttr {
      * 详情
      */
     content: string;
+    cid: number;
     status: number;
 }
 /**
@@ -34,6 +35,7 @@ class GoodsInfo extends Model implements GoodsInfoAttr {
     public sort_title: string;
     public image: string;
     public content: string;
+    public cid: number;
     public status: number;
 }
 GoodsInfo.init(
@@ -72,6 +74,11 @@ GoodsInfo.init(
             type: DataTypes.TEXT,
             defaultValue: "",
             comment: "详情",
+        },
+        cid: {
+            type: DataTypes.INTEGER,
+            defaultValue: 0,
+            comment: "分类id",
         },
         status: {
             type: DataTypes.TINYINT,
