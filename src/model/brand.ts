@@ -28,7 +28,7 @@ Brand.init(
         name: {
             type: DataTypes.STRING(50),
             defaultValue: "",
-            comment: "分类名",
+            comment: "品牌名",
         },
         image: {
             type: DataTypes.STRING(200),
@@ -69,6 +69,17 @@ export default {
     update(model, id) {
         return Brand.update(model, {
             where: { id },
+        });
+    },
+    search(pageIndex = 0, cid, limit = 20) {
+        let opts: any = {};
+        if (cid !== undefined) {
+            opts.cid = cid;
+        }
+        return Brand.findAndCountAll({
+            where: opts,
+            offset: pageIndex * limit,
+            limit,
         });
     },
 };
