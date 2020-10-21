@@ -71,4 +71,15 @@ export default {
             where: { id },
         });
     },
+    search(pageIndex = 0, pid, limit = 20) {
+        let opts: any = {};
+        if (pid !== undefined) {
+            opts.cid = pid;
+        }
+        return Classi.findAndCountAll({
+            where: opts,
+            offset: pageIndex * limit,
+            limit,
+        });
+    },
 };
